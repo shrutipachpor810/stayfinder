@@ -9,7 +9,13 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5001", // local React frontend
+    // "https://stayfinder-frontend.vercel.app" // add this after frontend is deployed
+  ],
+  credentials: true
+}));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
