@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../middlewares/upload");
-const authMiddleware = require("../middlewares/auth"); // ✅ required
+const authMiddleware = require("../middlewares/auth"); 
 const listingController = require("../controllers/listingController");
 
 // Public Routes

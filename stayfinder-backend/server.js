@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:5001",
-    // "https://stayfinder-frontend.vercel.app"
+    "https://stayfinder-frontend-sigma.vercel.app/"
   ],
   credentials: true
 }));
