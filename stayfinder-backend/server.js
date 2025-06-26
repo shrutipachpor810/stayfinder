@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -6,17 +5,23 @@ const cors = require("cors");
 const path = require("path");
 
 dotenv.config();
-
 const app = express();
+
+// Middleware
 app.use(express.json());
 app.use(cors({
   origin: [
-    "http://localhost:5001", // local React frontend
-    // "https://stayfinder-frontend.vercel.app" // add this after frontend is deployed
+    "http://localhost:5001",
+    // "https://stayfinder-frontend.vercel.app"
   ],
   credentials: true
 }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Test route
+app.get("/", (req, res) => {
+  res.send("StayFinder Backend is Live!");
+});
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
@@ -31,7 +36,7 @@ app.use("/api/listings", listingRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/favorites", favoriteRoutes);
 app.use("/api/gemini", geminiRoutes);
-app.use("/api/community", communityRoutes); 
+app.use("/api/community", communityRoutes);
 
 // Connect MongoDB
 mongoose.connect(process.env.MONGO_URI)
