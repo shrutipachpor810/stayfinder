@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../api";
 import {
   Card,
   CardMedia,
@@ -35,7 +35,6 @@ import Map, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
-const BASE_URL = "http://localhost:5000";
 
 const imagePlaceholders = {
   goa: "https://www.holidify.com/images/cmsuploads/compressed/4b494edb-f3a6-46c2-8278-6c87533c90bd_20210430201334.jpeg",
@@ -72,7 +71,7 @@ const ListingDetails = () => {
     setLoading(true);
     
     // Fetch listing
-    axios.get(`${BASE_URL}/api/listings/${id}`)
+    API.get(`/listings/${id}`)
       .then((res) => {
         setListing(res.data);
         geocodeLocation(res.data.location);
@@ -83,7 +82,7 @@ const ListingDetails = () => {
         setLoading(false);
       });
 
-    // Check if listing is in favorites
+    //if listing is in favorites
     if (userId) {
       const savedFavorites = JSON.parse(localStorage.getItem(`favorites_${userId}`)) || [];
       setFavorites(savedFavorites);
@@ -93,7 +92,7 @@ const ListingDetails = () => {
 
   const geocodeLocation = async (location) => {
     try {
-      const res = await axios.get(
+      const res = await API.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location)}.json?access_token=${MAPBOX_TOKEN}`
       );
       const [lng, lat] = res.data.features[0].center;
@@ -132,7 +131,7 @@ const ListingDetails = () => {
 
   const handleBooking = async () => {
     try {
-      await axios.post(`${BASE_URL}/api/bookings`, {
+      await API.post(`/bookings`, {
         userId,
         listingId: id,
         startDate,
@@ -164,9 +163,8 @@ const ListingDetails = () => {
     // Save to localStorage
     localStorage.setItem(`favorites_${userId}`, JSON.stringify(updatedFavorites));
     
-    // Optional: Also save to backend
     try {
-      axios.post(`${BASE_URL}/api/favorites`, {
+      API.post(`/favorites`, {
         userId,
         listingId: id,
         action: isFavorited ? 'remove' : 'add'
@@ -200,7 +198,7 @@ const ListingDetails = () => {
   const imageSrc = listing.imageUrl?.startsWith("http")
   ? listing.imageUrl
   : listing.imageUrl
-    ? `${BASE_URL}${listing.imageUrl}`
+    ? `${process.env.REACT_APP_MEDIA_BASE_URL}${listing.imageUrl}`
     : fallbackImage;
   const nights = startDate && endDate ? calculateNights(startDate, endDate) : 0;
   

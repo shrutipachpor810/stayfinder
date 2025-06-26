@@ -14,7 +14,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import MicIcon from "@mui/icons-material/Mic";
 import DescriptionIcon from "@mui/icons-material/Description";
 import jsPDF from "jspdf";
-import axios from "axios";
+import API from "../api";
 import { parseItineraryText } from "../utils/parseItinerary";
 
 // Voice recognition setup
@@ -56,7 +56,7 @@ const FloatingChatbot = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/gemini/chat", {
+      const res = await API.post("/gemini/chat", {
         message,
         userId,
       });

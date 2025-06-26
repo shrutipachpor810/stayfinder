@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../api";
 import {
   Box,
   Typography,
@@ -13,7 +13,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import PersonIcon from "@mui/icons-material/Person";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
-const BASE_URL = "http://localhost:5000";
+
 
 const CommunityPage = () => {
   const [posts, setPosts] = useState([]);
@@ -24,7 +24,7 @@ const CommunityPage = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/community`);
+      const res = await API.get(`/community`);
       setPosts(res.data);
     } catch (error) {
       console.error("Failed to fetch posts:", error);
@@ -35,7 +35,7 @@ const CommunityPage = () => {
     if (!newPost.trim()) return;
 
     try {
-      await axios.post(`${BASE_URL}/api/community`, {
+      await API.post(`/community`, {
         userId,
         name,
         content: newPost,

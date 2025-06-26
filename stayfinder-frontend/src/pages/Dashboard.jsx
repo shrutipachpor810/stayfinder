@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import api from "../api";
 import {
   Container,
   Typography,
@@ -14,6 +13,7 @@ import {
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import EmojiTravelIcon from "@mui/icons-material/EmojiTransportation";
+import API from "../api";
 
 const Dashboard = () => {
   const [bookings, setBookings] = useState([]);
@@ -23,7 +23,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await api.get(`/bookings/user/${userId}`);
+        const res = await API.get(`/bookings/user/${userId}`);
         setBookings(res.data);
       } catch (err) {
         console.error("Error fetching bookings:", err);

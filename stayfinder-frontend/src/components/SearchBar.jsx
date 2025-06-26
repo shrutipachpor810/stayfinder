@@ -28,7 +28,7 @@ const SearchBar = ({ onFilter }) => {
     endDate: "",
   });
 
-  const [setFocusedField] = useState(null);
+  const [focusedField,setFocusedField] = useState(null);
 
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });

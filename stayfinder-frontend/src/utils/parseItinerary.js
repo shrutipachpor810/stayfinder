@@ -8,12 +8,12 @@ export const parseItineraryText = (text) => {
   let currentDay = null;
 
   lines.forEach((line) => {
-    // Normalize and clean markdown from headings
+    // Normalizes and cleans markdown from headings
     const cleanedLine = line
-      .replace(/^#+\s*/, "")      // Remove markdown headings like ## or #
-      .replace(/\*\*/g, "")       // Remove bold markdown
-      .replace(/\*/g, "")         // Remove asterisk bullets
-      .replace(/`/g, "")          // Remove backticks
+      .replace(/^#+\s*/, "")      // Removes markdown headings like ## or #
+      .replace(/\*\*/g, "")       // Removes bold markdown
+      .replace(/\*/g, "")         // Removes asterisk bullets
+      .replace(/`/g, "")          // Removes backticks
       .trim();
 
     // Identify Day headers
@@ -24,7 +24,7 @@ export const parseItineraryText = (text) => {
         activities: [],
       };
     } else if (line.startsWith("* ") || line.startsWith("- ") || /^\d+\./.test(line)) {
-      // Capture activities (including numbered ones like 1. Activity)
+      
       currentDay?.activities.push(cleanedLine);
     }
   });

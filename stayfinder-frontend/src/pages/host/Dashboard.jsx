@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../api"; 
 import HostListingCard from "./HostListingCard";
 import CreateListingForm from "./CreateListingForm";
 import getToken from "../../utils/getToken";
@@ -41,7 +41,7 @@ const HostDashboard = () => {
     try {
       setLoading(true);
       setError("");
-      const res = await axios.get("http://localhost:5000/api/listings/host/all", {
+      const res = await API.get("/listings/host/all", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       setListings(res.data);
@@ -55,7 +55,7 @@ const HostDashboard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this listing?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/listings/${id}`, {
+      await API.delete(`/listings/${id}`, {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       fetchListings();
@@ -119,7 +119,6 @@ const HostDashboard = () => {
     </Card>
   );
 
-  
   const LoadingSkeleton = () => (
     <Box>
       {[1, 2, 3].map((item) => (

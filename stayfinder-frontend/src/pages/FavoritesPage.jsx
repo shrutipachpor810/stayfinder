@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../api";
 import {
   Box,
   Typography,
@@ -15,7 +15,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { useNavigate } from "react-router-dom";
 
-const BASE_URL = "http://localhost:5000";
 const fallbackImage = "https://via.placeholder.com/400";
 
 const FavoritesPage = () => {
@@ -27,8 +26,8 @@ const FavoritesPage = () => {
   useEffect(() => {
     if (!userId) return;
 
-    axios
-      .get(`${BASE_URL}/api/favorites/${userId}`)
+    API
+      .get(`${process.env.REACT_APP_API_BASE_URL}/favorites/${userId}`)
       .then((res) => {
         setFavorites(res.data.favorites || []);
         setLoading(false);
@@ -119,7 +118,7 @@ const FavoritesPage = () => {
                     listing.imageUrl?.startsWith("http")
                       ? listing.imageUrl
                       : listing.imageUrl
-                      ? `${BASE_URL}${listing.imageUrl}`
+                      ? `${process.env.REACT_APP_MEDIA_BASE_URL}${listing.imageUrl}`
                       : fallbackImage
                   }
                   alt={listing.title}

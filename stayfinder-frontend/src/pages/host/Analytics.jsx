@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../api";
 import {
   Typography,
   Box,
@@ -33,7 +33,7 @@ const Analytics = () => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/listings/host/all", {
+        const res = await API.get("/listings/host/all", {
           headers: { Authorization: `Bearer ${getToken()}` },
         });
         setListings(res.data);
@@ -45,7 +45,7 @@ const Analytics = () => {
     fetchListings();
   }, []);
 
-  // Generate bar chart data from listings
+
   const locationData = listings.reduce((acc, listing) => {
     const location = listing.location || "Unknown";
     acc[location] = (acc[location] || 0) + 1;
@@ -122,7 +122,7 @@ const Analytics = () => {
       <Grid container spacing={3} sx={{ mb: 6 }}>
         {listings.map((listing) => {
           const imageUrl = listing.imageUrl?.startsWith("/uploads")
-            ? `http://localhost:5000${listing.imageUrl}`
+            ? `${process.env.REACT_APP_API_BASE_URL}${listing.imageUrl}`
             : listing.imageUrl;
 
           return (

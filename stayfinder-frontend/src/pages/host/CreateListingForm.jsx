@@ -8,7 +8,7 @@ import {
   Paper,
   InputLabel,
 } from "@mui/material";
-import axios from "axios";
+import API from "../../api";
 import getToken from "../../utils/getToken";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -52,14 +52,14 @@ const CreateListingForm = ({ fetchListings, editing, setEditing }) => {
 
     try {
       if (editing) {
-        await axios.put(
-          `http://localhost:5000/api/listings/${editing._id}`,
+        await API.put(
+          `/listings/${editing._id}`,
           formData,
           config
         );
       } else {
-        await axios.post(
-          "http://localhost:5000/api/listings",
+        await API.post(
+          "/listings",
           formData,
           config
         );

@@ -17,12 +17,11 @@ const imagePlaceholders = {
 const PropertyCard = ({ listing }) => {
   const locationKey = listing.location?.toLowerCase();
   const fallbackImage = imagePlaceholders[locationKey] || "https://via.placeholder.com/320";
-  const BASE_URL = "http://localhost:5000";
   const imageSrc = listing.imageUrl?.startsWith("http")
-  ? listing.imageUrl // Full URL from seed.js
+  ? listing.imageUrl 
   : listing.imageUrl
-    ? `${BASE_URL}${listing.imageUrl}` // Relative path from upload (e.g., /uploads/abc.jpg)
-    : fallbackImage; // If imageUrl is missing or null
+    ? `${process.env.REACT_APP_MEDIA_BASE_URL}${listing.imageUrl}`
+    : fallbackImage; 
   return (
     <Box
       sx={{

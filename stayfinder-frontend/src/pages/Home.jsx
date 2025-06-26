@@ -12,7 +12,7 @@ const Home = () => {
     const fetchListings = async () => {
       const res = await api.get("/listings");
       setListings(res.data);
-      setFilteredListings(res.data); // initially all
+      setFilteredListings(res.data); 
     };
     fetchListings();
   }, []);

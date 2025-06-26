@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../api";
 import HostListingCard from "../host/HostListingCard";
 import getToken from "../../utils/getToken";
 
@@ -8,7 +8,7 @@ const MyListings = () => {
 
   const fetchHostListings = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/listings/host/all", {
+      const res = await API.get("/listings/host/all", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       setListings(res.data);
@@ -23,7 +23,7 @@ const MyListings = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/listings/${id}`, {
+      await API.delete(`/listings/${id}`, {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       fetchHostListings(); // refresh after delete
