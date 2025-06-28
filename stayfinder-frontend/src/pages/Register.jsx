@@ -28,7 +28,7 @@ const Register = () => {
     e.preventDefault();
     setError("");
     try {
-      await api.post("/auth/register", form);
+      await API.post("/auth/register", form);
       navigate("/login");
     } catch (err) {
       setError(
