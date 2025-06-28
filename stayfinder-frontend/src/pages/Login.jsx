@@ -8,7 +8,7 @@ import {
   Alert,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import api from "../api";
+import API from "../api";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
