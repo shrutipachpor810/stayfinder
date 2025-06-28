@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../api";
+import API from "../api";
 import PropertyCard from "../components/PropertyCard";
 import SearchBar from "../components/SearchBar"; 
 import { Box, Typography, Container } from "@mui/material";
@@ -10,7 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchListings = async () => {
-      const res = await api.get("/listings");
+      const res = await API.get("/listings");
       setListings(res.data);
       setFilteredListings(res.data); 
     };
